@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+      
+      <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <title>Web Video Player v2.0</title>
+      
+    <style>
+        /* Testing purposes 
+        #toolbar{
+            height: 100vh;
+        }
+        #toolbar .row{
+            height: 100%;
+            margin-top: -150px;
+        }*/
+        .fas{
+            color: white;
+        }
+        #main{
+            position: absolute;
+            z-index: 98;
+            top: 45vh;
+            right: 50px;
+        }
+        #mainheader{
+            cursor: move;
+            z-index: 99;
+        }
+        #user{
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+  </head>
+  <body>
+      
+    <div id="main">
+        <div class="btn-group-vertical bg-primary p-0" style="border-radius: 5px;">
+            <i id="mainheader" class="fas fa-ellipsis-h w-100 text-center mt-1 mb-1"></i>
+            <div class="dropdown-divider w-100 mt-0" style="border-top-color: blue;"></div>
+            <div class="text-center w-100 text-white">
+                <h5 id="user" class="mb-0">IN</h5>
+            </div>
+            <div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownSettings"><i class="fas fa-bars" style="width:18px;"></i></i></button>
+
+                <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownSettings">
+                    <!-- Dropdown menu stuff -->
+                    <h6 class="dropdown-header bg-primary text-white">Settings</h6>
+                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
+
+                    <div class="dropdown-divider"></div>
+                    <div class="p-4 text-muted">
+                        adasdfasdfasdf
+                        <div class="form-group">
+                          <label for="exampleDropdownFormEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownEdit"><i class="fas fa-edit"></i></button>
+
+                <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownEdit">
+                    <!-- Dropdown menu stuff -->
+                    <h6 class="dropdown-header bg-primary text-white">Edit</h6>
+                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
+
+                    <div class="dropdown-divider"></div>
+                    <div class="p-4 text-muted">
+                        adasdfasdfasdf
+                        <div class="form-group">
+                          <label for="exampleDropdownFormEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownDiscuss" data-refer><i class="fas fa-comments"></i></button>
+
+                <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownDiscuss">
+                    <!-- Dropdown menu stuff -->
+                    <h6 class="dropdown-header bg-primary text-white">Discuss</h6>
+                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
+
+                    <div class="dropdown-divider"></div>
+                    <div class="p-4 text-muted">
+                        adasdfasdfasdf
+                        <div class="form-group">
+                          <label for="exampleDropdownFormEmail1">Email address</label>
+                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        // Make the DIV element draggable:
+dragElement(document.getElementById("main"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV: 
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+    </script>
+    
+  </body>
+</html>
