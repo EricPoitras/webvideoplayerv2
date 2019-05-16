@@ -13,6 +13,8 @@
       
       <!-- Google Fonts -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      
+      
 
     <title>Web Video Player v2.0</title>
       
@@ -44,6 +46,62 @@
     </style>
   </head>
   <body>
+    <p>Highlight text demo.</p>
+    <p>Highlight text demo 2.</p>
+      
+     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+      
+    <div id="scroll" style="background-color: black; z-index: 98; opacity: 0.5; position: fixed; right: 0px; top: 0px; height: 100vh; width: 25px;">
+      
+    </div>
+      
+    <div id="timeline" style="background-color: black; z-index: 98; opacity: 0.5; position: absolute; height: 25px;">
+      
+    </div>
       
     <div id="main">
         <div class="btn-group-vertical bg-primary p-0" style="border-radius: 5px;">
@@ -58,15 +116,14 @@
                 <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownSettings">
                     <!-- Dropdown menu stuff -->
                     <h6 class="dropdown-header bg-primary text-white">Settings</h6>
-                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
-
-                    <div class="dropdown-divider"></div>
-                    <div class="p-4 text-muted">
-                        adasdfasdfasdf
-                        <div class="form-group">
-                          <label for="exampleDropdownFormEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                        </div>
+                    <div class="p-0 text-muted">
+                        <form class="p-4">
+                            <div class="form-group row">
+                                <label for="initials">Initials</label>
+                                <input type="text" class="form-control" id="initials" placeholder="IN">
+                            </div>
+                            <button id="btn_login" type="button" class="btn btn-primary w-100 mt-2"><i class="fab fa-google"></i> Login with Google</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -76,17 +133,31 @@
                 <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownEdit">
                     <!-- Dropdown menu stuff -->
                     <h6 class="dropdown-header bg-primary text-white">Edit</h6>
-                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
-
-                    <div class="dropdown-divider"></div>
+                    <!-- Create the editor container -->
                     <div class="p-4 text-muted">
-                        adasdfasdfasdf
-                        <div class="form-group">
-                          <label for="exampleDropdownFormEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                        </div>
+                        <form>
+                            <div class="form-group row">
+                                <label for="exampleFormControlSelect1">Template</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                  <option>Option 1</option>
+                                  <option>Option 2</option>
+                                  <option>Option 3</option>
+                                  <option>Option 4</option>
+                                  <option>Option 5</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Textarea">Edit</label>
+                                <textarea class="form-control" id="Textarea" rows="3"></textarea>
+                                <button id="btn_saveedit" type="button" class="btn btn-primary w-100 mt-2">Save</button>
+                              </div>
+                        
+                        </form>
                     </div>
                 </div>
+            </div>
+            <div class="dropdown">
+                <button id="btn_highlight" type="button" class="btn btn-primary w-100"><i class="fas fa-highlighter" style="width:27px;"></i></button>
             </div>
             <div class="dropdown dropleft">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownDiscuss" data-refer><i class="fas fa-comments"></i></button>
@@ -94,19 +165,65 @@
                 <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownDiscuss">
                     <!-- Dropdown menu stuff -->
                     <h6 class="dropdown-header bg-primary text-white">Discuss</h6>
-                    <p class="dropdown-item-text">Stuff appears here sha la la sha lala la la</p>
+                    <div class="p-0 text-muted">
+                        <form class="ml-0 mr-0 w-100">
+                            <div class="container-fluid" style="height: 200px; overflow-y: scroll;">
+                                <div id="message_1" class="row justify-content-left">
+                                    <div class="col-9">
+                                        <div class="card p-2 mt-2">
+                                            <p>Message appears here...</p>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <form class="p-4">
+                            <div class="form-group row">
+                                <label for="Textarea2">Message</label>
+                                <textarea class="form-control" id="Textarea2" rows="3"></textarea>
+                                <button id="btn_savemessage" type="button" class="btn btn-primary w-100 mt-2">Send</button>
+                              </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="dropdown dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownDiscuss" data-refer><i class="fas fa-file-alt" style="width:22px;"></i></button>
 
-                    <div class="dropdown-divider"></div>
-                    <div class="p-4 text-muted">
-                        adasdfasdfasdf
-                        <div class="form-group">
-                          <label for="exampleDropdownFormEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                <div class="dropdown-menu pt-0" style="width:300px;max-width:300px;" aria-labelledby="dropdownDiscuss">
+                    <!-- Dropdown menu stuff -->
+                    <h6 class="dropdown-header bg-primary text-white">Lesson Activities</h6>
+                    <div class="p-0 text-muted">
+                        <div class="form">
+                          <div class="card-body" style="height: 200px; overflow-y: scroll;">
+                        <div id="list_ordered" class="list-group">
+                    <div class="list-group-item d-flex flex-row my-1">
+                        <div class="p-2 flex-fill">Flex item 1</div>
+                    </div>
+                    <div class="list-group-item d-flex flex-row">
+                        <div class="p-2 flex-fill">Flex item 2</div>
+                    </div>
+                    <div class="list-group-item d-flex flex-row">
+                        <div class="p-2 flex-fill">Flex item 3</div>
+                    </div>
+                    <div class="list-group-item d-flex flex-row">
+                        <div class="p-2 flex-fill">Flex item 4</div>
+                    </div>
+                    <div class="list-group-item d-flex flex-row">
+                        <div class="p-2 flex-fill">Flex item 5</div>
+                    </div>
+                    <div class="list-group-item d-flex flex-row">
+                        <div class="p-2 flex-fill">Flex item 6</div>
+                    </div>
+			     </div>
+                    <button id="btn_export" type="button" class="btn btn-primary w-100 mt-2">Export</button>
+                    </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -115,8 +232,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Latest Sortable -->
+	<script src="js/Sortable.js"></script>
+
     <script>
-        // Make the DIV element draggable:
+        
 dragElement(document.getElementById("main"));
 
 function dragElement(elmnt) {
@@ -158,7 +278,87 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
   }
+    
+    // addEventListener version
+    document.addEventListener('selectionchange', () => {
+      console.log('Selection changed.'); 
+      //let element = document.createElement("span");
+     //window.getSelection().getRangeAt(0).surroundContents(element);
+      console.log(window.getSelection());
+      console.log(window.getSelection().getRangeAt(0).cloneContents().toString());
+      const serializer = new XMLSerializer();
+        const document_fragment_string = serializer.serializeToString(window.getSelection().getRangeAt(0).cloneContents());
+        console.log(document_fragment_string);
+    });
+    
+    var btn_highlight  = document.getElementById("btn_highlight");
+    btn_highlight.addEventListener("click", highlight_text);
+    var top;
+    var left;
+    
+    function highlight_text(){
+        top = window.getSelection().getRangeAt(0).getBoundingClientRect().top.toString()+"px";
+        left = window.getSelection().getRangeAt(0).getBoundingClientRect().right;
+        left = left + 50;
+        left = left + "px";
+        
+        let element = document.createElement("span");
+        element.style.backgroundColor = "yellow";
+        try{
+            window.getSelection().getRangeAt(0).surroundContents(element);
+        }catch{
+            
+        }
+        let note = document.createElement("div");
+        let text = document.createTextNode("\u00a0");
+        note.style.position = "absolute";
+        note.style.top = top;
+        note.style.right = 0;
+        note.style.width = "25px";
+        note.style.backgroundColor = "orange";
+        note.style.opacity = "0.75";
+        note.style.zIndex = "99";
+        note.appendChild(text);
+        document.body.appendChild(note);
+    }
+    
+    $('#btn_saveedit').click(function() {
+      $(this).parents('.dropdown').find('button.dropdown-toggle').dropdown('toggle');
+    });
+    
+    var dropdownEdit = document.getElementById("dropdownEdit");
+    dropdownEdit.addEventListener("click", getselectedtext);
+    
+    function getselectedtext(){
+        
+        if (window.getSelection) {
+            var selectedtext = window.getSelection().toString();
+            document.getElementById("Textarea").value = selectedtext;
+            
+        } else if (document.selection && document.selection.type == "Text") {
+            var selectedtext = document.selection.createRange().text;
+            document.getElementById("Textarea").value = selectedtext;
+        }
+    }
+    
+    var example1 = document.getElementById('list_ordered');
+        // Example 1 - Simple list
+        new Sortable(example1, {
+            animation: 150,
+            ghostClass: 'blue-background-class'
+        });
+    
+    
+    
 }
+    </script>
+    
+    <script>
+         // Make the DIV element draggable:
+    var timeline = document.getElementById("timeline");
+    timeline.style.left = document.getElementById("player").style.left;
+    timeline.style.top = document.getElementById("player").style.bottom;
+    timeline.style.width = "640px";
     </script>
     
   </body>
